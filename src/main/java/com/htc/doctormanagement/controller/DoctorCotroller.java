@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.htc.doctormanagement.dao.AppointmentInterface;
 import com.htc.doctormanagement.dao.DoctorInterface;
+import com.htc.doctormanagement.dto.doctordto;
 import com.htc.doctormanagement.entity.Appointment;
 import com.htc.doctormanagement.entity.Doctor;
 import com.htc.doctormanagement.service.DoctorService;
@@ -45,8 +46,9 @@ public class DoctorCotroller {
 
 
 		@PostMapping("/doctors")
-		ResponseEntity<Object> createDoctordetails(@RequestBody Doctor doctor)
+		ResponseEntity<Object> createDoctordetails(@RequestBody  doctordto doctorDto)
 		{
+			Doctor doctor=new Doctor(doctorDto.getDoctorName(),doctorDto.getSpecialization(),doctorDto.getAppointment());
 			return doctorService.createDoctordetails(doctor);
 			
 		}

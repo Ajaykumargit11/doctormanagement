@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,9 +19,8 @@ import javax.persistence.Table;
 public class Doctor implements Serializable {
 
 	
-	public Doctor(long doctorId, String doctorName, String specialization) {
+	public Doctor( String doctorName, String specialization) {
 		super();
-		this.doctorId = doctorId;
 		this.doctorName = doctorName;
 		this.specialization = specialization;
 	}
@@ -31,10 +32,21 @@ public class Doctor implements Serializable {
 	 */
 	private static final long serialVersionUID = -4686260504604541074L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long doctorId;
 	private String doctorName;
 	private String specialization;
 	
+	public Doctor(List<Appointment> appointment) {
+		super();
+		this.appointment = appointment;
+	}
+	public Doctor(String doctorName, String specialization, List<Appointment> appointment) {
+		super();
+		this.doctorName = doctorName;
+		this.specialization = specialization;
+		this.appointment = appointment;
+	}
 	@OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Appointment> appointment;
 	
